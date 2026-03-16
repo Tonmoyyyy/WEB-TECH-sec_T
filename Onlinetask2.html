@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DOM Manipulation Example</title>
+</head>
+
+<body>
+
+<h2>User Information</h2>
+
+<label>Name:</label>
+<input type="text" id="name">
+
+<br><br>
+
+<label>Gender:</label>
+<input type="radio" name="gender" value="Male"> Male
+<input type="radio" name="gender" value="Female"> Female
+
+<br><br>
+
+<button onclick="addData()">Submit</button>
+
+<br><br>
+
+<div id="tableArea"></div>
+
+<script>
+
+let table;
+
+function addData(){
+
+    let name = document.getElementById("name").value;
+
+    let gender = document.querySelector('input[name="gender"]:checked');
+
+    if(name == "" || gender == null){
+        alert("Please enter name and select gender");
+        return;
+    }
+
+    gender = gender.value;
+
+    if(!table){
+
+        table = document.createElement("table");
+        table.border = "1";
+
+        let header = document.createElement("tr");
+
+        let h1 = document.createElement("th");
+        h1.innerText = "Name";
+
+        let h2 = document.createElement("th");
+        h2.innerText = "Gender";
+
+        header.appendChild(h1);
+        header.appendChild(h2);
+
+        table.appendChild(header);
+
+        document.getElementById("tableArea").appendChild(table);
+    }
+
+    let row = document.createElement("tr");
+
+    let col1 = document.createElement("td");
+    col1.innerText = name;
+
+    let col2 = document.createElement("td");
+    col2.innerText = gender;
+
+    row.appendChild(col1);
+    row.appendChild(col2);
+
+    table.appendChild(row);
+
+}
+
+</script>
+
+</body>
+</html>

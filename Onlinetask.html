@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>My Form</title>
+</head>
+<body>
+
+<h1>Test Form</h1>
+
+<label>Username:</label>
+<input type="text" id="username">
+
+<br><br>
+<label>Password:</label>
+<input type="text" id="password">
+<br><br>
+
+<input type="submit" value="Submit">
+
+<p id="output"></p>
+
+<script>
+    document.getElementById("username").addEventListener("input", function() {
+    let name = document.getElementById("username").value;
+    let capital = name.toUpperCase();  
+    document.getElementById("output").innerHTML = capital;
+});
+</script>
+
+</body>
+</html>
