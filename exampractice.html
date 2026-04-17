@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Records</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .input-group { margin-bottom: 10px; }
+        label { display: inline-block; width: 120px; }
+        table { width: 50%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .error { color: red; font-size: 0.9em; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Student Data Entry</h2>
+    
+    <div class="input-group">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Letters only">
+    </div>
+
+    <div class="input-group">
+        <label for="studentMarks">Student Marks:</label> 
+        <input type="number" id="studentMarks" >
+    </div>
+
+    <div id="errorMessage" class="error"></div>
+
+    <button id="submitBtn">Submit</button>
+
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+
+    <script>
+        const submitBtn = document.getElementById('submitBtn');
+        const nameInput = document.getElementById('studentName');
+        const marksInput = document.getElementById('studentMarks');
+        const errorDiv = document.getElementById('errorMessage');
+        const tableBody = document.querySelector('#studentTable tbody');
+
+        submitBtn.addEventListener('click', function() {
+            const name = nameInput.value.trim();
+            const marks = marksInput.value.trim();
+            errorDiv.textContent = ""; // Clear previous errors
+
+            // 1. Validation Logic
+            
+            // Name validation: Not empty and letters only (no spaces/numbers/special chars)
+            const nameRegex = /^[A-Za-z]+$/;
+            if (name === "" || !nameRegex.test(name)) {
+                errorDiv.textContent = "Error: Name must contain only letters and cannot be empty.";
+                return;
+            }
+
+            // Marks validation: Must be a number between 0 and 100
+            const marksValue = parseFloat(marks);
+            if (isNaN(marksValue) || marksValue < 0 || marksValue > 100) {
+                errorDiv.textContent = "Error: Marks must be a number between 0 and 100 inclusive.";
+                return;
+            }
+
+            // 2. Dynamic Update Logic
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${marksValue}</td>
+            `;
+
+            tableBody.appendChild(newRow);
+
+            // Clear inputs after successful submission
+            nameInput.value = "";
+            marksInput.value = "";
+        });
+    </script>
+
+</body>
+</html>
